@@ -243,3 +243,6 @@ Temporary Items
 
 # Visual studio code
 /.vscode
+
+#Too big matrix
+Flan_1565.mtx
