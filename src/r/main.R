@@ -1,19 +1,20 @@
 library("Matrix")
 
-# https://www.r-bloggers.com/5-ways-to-measure-running-time-of-r-code/
-
 # set workspace path
 # setwd("../../git/cholesky-computing/src/r")
 
-matrix <- readMM("../../data/ex15.mtx")  
+A <- readMM("../../data/ex15.mtx")
 
-start <- Sys.time()
+# find b 
+xe <- matrix(1, 1, ncol(A))
+b <- xe %*% A
+
 
 # https://www.rdocumentation.org/packages/Matrix/versions/1.2-18/topics/chol
 
-cholesky <- tryCatch(
+R <- tryCatch(
   {
-    Matrix::chol(matrix)
+    Matrix::chol(A)
   },
   error = function(e){
     print(e) # if matrix is not positive definite or symmetric, an error is signalled.
@@ -23,9 +24,9 @@ cholesky <- tryCatch(
   }
 )
 
-end <- Sys.time()
-time <- end - start
-time
+RRt <- R %*% t(R)
+x <- as.vector(solve(RRt,t(b)))
 
-print(cholesky)
-
+# https://www.rdocumentation.org/packages/pracma/versions/1.9.9/topics/Norm
+# relative error
+err <-  norm(x - xe, type = "2") / norm(xe, type = "2")
