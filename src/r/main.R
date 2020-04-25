@@ -1,4 +1,4 @@
-library("Matrix")
+library("Matrix", "pryr")
 
 # set workspace path
 # setwd("../../git/cholesky-computing/src/r")
@@ -6,14 +6,13 @@ library("Matrix")
 # read matrix
 
 A <- readMM("../../data/ex15.mtx")
-
+m_i <- pryr::mem_used()
 # find b for x to be [1, 1, ..., 1]
 
 xe <- rep(1, 1, ncol(A))
 b <-  A %*% xe  
 
 # Cholesky decomposition
-# https://www.rdocumentation.org/packages/Matrix/versions/1.2-18/topics/chol
 
 R <- tryCatch(
   {
@@ -29,13 +28,16 @@ R <- tryCatch(
 
 
 # solve the linear system
-# R is upper triangular, so i can apply backward substitution
-# https://stat.ethz.ch/R-manual/R-devel/library/base/html/backsolve.html
+s <- Sys.time()
 
 y <- forwardsolve(t(R), b)
 x <- backsolve(R, y)
 
+timing <- Sys.time() - s 
+m_f <- pryr::mem_used()
+mem <- m_f - m_i
+
 # relative error
-# https://www.rdocumentation.org/packages/pracma/versions/1.9.9/topics/Norm
 
 err <-  norm(x - xe, type = "2") / norm(xe, type = "2")
+
