@@ -60,28 +60,26 @@ int main(int argc, char *argv[])
             t1 = std::chrono::high_resolution_clock::now();
             sparseMatrixMarket spMatrix(mtxFile);
             t2 = std::chrono::high_resolution_clock::now();
-            duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
-            std::cout << "Import:" << '\t' << '\t' << duration / 1000.0 << " ms" << std::endl;
+            duration = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
+            std::cout << "Import:" << '\t' << '\t' << duration << " ms" << std::endl;
 
-            std::cout << "rows:" << '\t' << '\t' << spMatrix.rows() << std::endl;
-            std::cout << "cols:" << '\t' << '\t' << spMatrix.cols() << std::endl;
-            std::cout << "nonZeros:" << '\t' << spMatrix.nonzeros() << std::endl;
+            std::cout << "rows:" << '\t' << '\t' << spMatrix.matrixMarket().rows() << std::endl;
+            std::cout << "cols:" << '\t' << '\t' << spMatrix.matrixMarket().cols() << std::endl;
+            std::cout << "nonZeros:" << '\t' << spMatrix.matrixMarket().nonZeros() << std::endl;
             std::cout << "size:" << '\t' << '\t'
-                      << (spMatrix.matrixMarket().outerSize() +
-                          (spMatrix.matrixMarket().nonZeros() * 2)) *
-                             8
+                      << (spMatrix.matrixMarket().outerSize() + spMatrix.matrixMarket().nonZeros() + 1) * 4 +
+                          (spMatrix.matrixMarket().nonZeros() * 8) 
                       << " byte" << std::endl;
 
             // Cholesky decomposition
             t1 = std::chrono::high_resolution_clock::now();
             Eigen::SimplicialLLT<Eigen::SparseMatrix<double>> chol(spMatrix.matrixMarket());
             t2 = std::chrono::high_resolution_clock::now();
-            duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
-            std::cout << "Chol:" << '\t' << '\t' << duration / 1000.0 << " ms" << std::endl;
+            duration = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
+            std::cout << "Chol:" << '\t' << '\t' << duration << " ms" << std::endl;
             std::cout << "Chol size:" << '\t'
-                      << (chol.matrixL().nestedExpression().outerSize() +
-                          (chol.matrixL().nestedExpression().nonZeros() * 2)) *
-                             8
+                      << (chol.matrixL().nestedExpression().outerSize() + chol.matrixL().nestedExpression().nonZeros() + 1) * 4 +
+                          (chol.matrixL().nestedExpression().nonZeros() * 8)
                       << " byte" << std::endl;
 
             // Relative error
