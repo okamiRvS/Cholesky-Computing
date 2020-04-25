@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-I.
+CFLAGS=-I. -O3 -march=native
 DEPS = sparseMatrixMarket.h
 OBJ = main.o sparseMatrixMarket.o 
 

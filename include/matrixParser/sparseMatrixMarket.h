@@ -6,12 +6,14 @@ typedef Eigen::Triplet<double> T;
 class sparseMatrixMarket
 {
 private:
-    int rows, cols, nonzeros;
+    int _rows, _cols, _nonzeros;
     Eigen::SparseMatrix<double> _matrixMarket;
 
-public:
-    std::string url, name, author;   
+public: 
     sparseMatrixMarket(std::string &filename);
     void readMatrix(std::string &filename);
-    Eigen::SparseMatrix<double> matrixMarket();
+    Eigen::SparseMatrix<double> & matrixMarket();
+    int rows();
+    int cols();
+    int nonzeros();
 };

@@ -1,0 +1,69 @@
+G3_circuit.mtx
+Import:         3288.24 ms
+rows:           1585478
+cols:           1585478
+nonZeros:       4623152
+size:           135257040 byte
+Chol:           282079 ms
+Chol size:      2724154480 byte
+err:            7.37764e-12
+
+cfd2.mtx
+Import:         1165.52 ms
+rows:           123440
+cols:           123440
+nonZeros:       1605669
+size:           50354016 byte
+Chol:           170858 ms
+Chol size:      1206847632 byte
+err:            6.26397e-12
+
+shallow_water1.mtx
+Import:         158.022 ms
+rows:           81920
+cols:           81920
+nonZeros:       204800
+size:           5898240 byte
+Chol:           708.488 ms
+Chol size:      37361344 byte
+err:            2.7915e-16
+
+apache2.mtx
+Import:         1938.84 ms
+rows:           715176
+cols:           715176
+nonZeros:       2766523
+size:           82807328 byte
+Chol:           611884 ms
+Chol size:      3564254352 byte
+err:            7.72368e-11
+
+cfd1.mtx
+Import:         689.98 ms
+rows:           70656
+cols:           70656
+nonZeros:       949510
+size:           29774528 byte
+Chol:           41019.3 ms
+Chol size:      542736464 byte
+err:            1.83744e-12
+
+ex15.mtx
+Import:         38.917 ms
+rows:           6867
+cols:           6867
+nonZeros:       52769
+size:           1633672 byte
+Chol:           10.145 ms
+Chol size:      3718264 byte
+err:            7.43295e-07
+
+parabolic_fem.mtx
+Import:         1693.63 ms
+rows:           525825
+cols:           525825
+nonZeros:       2100225
+size:           63000600 byte
+Chol:           22439.1 ms
+Chol size:      581997544 byte
+err:            2.17958e-12

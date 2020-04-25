@@ -246,3 +246,9 @@ Temporary Items
 
 #Too big matrix
 Flan_1565.mtx
+data/apache2.mtx
+data/cfd1.mtx
+data/cfd2.mtx
+data/G3_circuit.mtx
+data/parabolic_fem.mtx
+data/shallow_water1.mtx

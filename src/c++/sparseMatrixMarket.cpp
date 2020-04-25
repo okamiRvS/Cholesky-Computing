@@ -17,13 +17,18 @@ void sparseMatrixMarket::readMatrix(std::string &filename)
     std::vector<double> T_element;
     std::ifstream infile;
     bool bDimRow = true;
+    bool bIsSymmetric = false;
     std::string line;
     infile.open(filename);
+
     while (std::getline(infile, line))
     {
         if (line[0] == '%')
-        { // Metadata
-            // do something
+        {   // Metadata
+            if (line[1] == '%' & line.find("symmetric") != std::string::npos) 
+            {   // Check if matrix is symmetric
+                bIsSymmetric = true;
+            }
         }
         else
         {
@@ -35,24 +40,51 @@ void sparseMatrixMarket::readMatrix(std::string &filename)
             }
             if (bDimRow)
             {
-                this->rows = trunc(T_element[0]);
-                this->cols = trunc(T_element[1]);
-                this->nonzeros = trunc(T_element[2]);
-                tripletList.reserve(nonzeros);
+                this->_rows = trunc(T_element[0]);
+                this->_cols = trunc(T_element[1]);
+                this->_nonzeros = trunc(T_element[2]);
+                if (bIsSymmetric) 
+                {
+                    tripletList.reserve(2 * this->_nonzeros - 3 * this->_rows);
+                } else {
+                    tripletList.reserve(this->_nonzeros);
+                }             
                 bDimRow = false;
             }
             else
             {
-                tripletList.push_back(T(T_element[0] - 1, T_element[1] - 1, T_element[2]));
+                if (T_element[2] != 0)
+                {
+                    tripletList.push_back(T(T_element[0] - 1, T_element[1] - 1, T_element[2]));
+                    if (bIsSymmetric && T_element[0] != T_element[1])
+                    {
+                        tripletList.push_back(T(T_element[1] - 1, T_element[0] - 1, T_element[2]));
+                    }
+                }
             }
             T_element.clear();
         }
     }
-    this->_matrixMarket.resize(rows, cols);
+    this->_matrixMarket.resize(this->_rows, this->_cols);
     this->_matrixMarket.setFromTriplets(tripletList.begin(), tripletList.end());
 }
 
-Eigen::SparseMatrix<double> sparseMatrixMarket::matrixMarket()
+Eigen::SparseMatrix<double> & sparseMatrixMarket::matrixMarket()
 {
     return this->_matrixMarket;
+}
+
+int sparseMatrixMarket::rows()
+{
+    return this->_rows;
+}
+
+int sparseMatrixMarket::cols()
+{
+    return this->_cols;
+}
+
+int sparseMatrixMarket::nonzeros()
+{
+    return this->_nonzeros;
 }
