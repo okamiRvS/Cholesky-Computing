@@ -1,5 +1,5 @@
 % read the matrix
-[A, rows, col, entries] = mmread('/Users/king/git/cholesky-computing/data/ex15.mtx');
+[A, rows, col, entries] = mmread('../../data/ex15.mtx');
 
 % memory calculation after loading the matrix
 initial = memory;
@@ -14,6 +14,12 @@ tic
 
 % Cholewski decomposition
 R = chol(A);
+
+% whos A
+% whos R
+% R = full(R);
+% whos R
+
 x = R\(R'\b);
 
 time = toc;
