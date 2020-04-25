@@ -30,8 +30,8 @@ R <- tryCatch(
 # solve the linear system
 s <- Sys.time()
 
-y <- forwardsolve(t(R), b)
-x <- backsolve(R, y)
+y <- Matrix::solve(t(R), b)
+x <- Matrix::solve(R, y)
 
 timing <- Sys.time() - s 
 m_f <- pryr::mem_used()
@@ -40,4 +40,3 @@ mem <- m_f - m_i
 # relative error
 
 err <-  norm(x - xe, type = "2") / norm(xe, type = "2")
-
