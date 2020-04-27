@@ -28,6 +28,9 @@ import time
 # https://gist.github.com/Puriney/98544b779bcb815926f7acf87f537e61
 # https://github.com/benfred/implicit/blob/master/benchmarks/benchmark_als.py
 
+# Time calculation
+# https://stackoverflow.com/questions/53542186/how-to-compute-the-return-value-of-pythons-time-process-time-in-millisecond?noredirect=1&lq=1
+
 def no_sparse_cholesky(csc_mat):
 	# lower=True is upper-triangular
 	L = scipy.linalg.cholesky(csc_mat, lower=True) # Perform Cholesky decomposition 
@@ -46,8 +49,11 @@ def sparse_cholesky(A):
 	return cholesky(A)
 
 def read_matrix():
+	start = time.process_time()
 	# Read in mtx file by scipy
-	coo_mat = scipy.io.mmread('../../data/ex15.mtx')
+	coo_mat = scipy.io.mmread('../../data/G3_circuit.mtx')
+	end = time.process_time()
+	print("Import time: " + str(1000 * (end - start)), " ms")
 
 	# Scipy matrix in coo layout can be easily converted to other types: csr and csc.
 	# csr_mat = coo_mat.tocsr(copy=True)
@@ -57,14 +63,14 @@ def read_matrix():
 #@profile
 def main():
 	A = read_matrix()
-	print("Number of zeros: ", A.nnz)
-
-	# If you just want the number of bytes of the array elements
-	print("A size: ", A.data.nbytes + A.indptr.nbytes + A.indices.nbytes, " bytes")
 
 	# dir(A) is similar to vars(A)
 	# get dimensions of matrix
 	[xSize, ySize] = A.get_shape()
+	print("rows", xSize)
+	print("cols", ySize)
+	print("Number of nonzero: ", A.nnz)
+	print("A size: ", A.data.nbytes + A.indptr.nbytes + A.indices.nbytes, " bytes")
 
 	# vettore incognite tutte a 1
 	xe = np.ones(ySize)
@@ -76,6 +82,8 @@ def main():
 	start = time.process_time()
 	Ls = sparse_cholesky(A)
 	end = time.process_time()
+	print("Time execution of sparse cholesky: " + str(1000* (end - start)), " ms")
+	print('\n')
 
 	x = Ls(b) # solves the equation Ax=b
 
@@ -85,9 +93,7 @@ def main():
 
 	print("The solution is: ")
 	print(x)
-	print('\n')
-	print("Time execution of sparse cholesky: " + str(end - start))
-	print("The error relative is: ", np.linalg.norm(x-xe)/np.linalg.norm(xe))
+	print("The error is: ", np.linalg.norm(x-xe)/np.linalg.norm(xe))
 
 	'''
 	# no sparse_cholesky execution
