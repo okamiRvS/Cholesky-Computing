@@ -28,9 +28,6 @@ import time
 # https://gist.github.com/Puriney/98544b779bcb815926f7acf87f537e61
 # https://github.com/benfred/implicit/blob/master/benchmarks/benchmark_als.py
 
-# non va il modulo scikits.sparse.cholmod perchè non si riesce a installare su
-# windows 7, inoltre è un wrapper della libreria eigen di c++...
-
 def no_sparse_cholesky(csc_mat):
 	# lower=True is upper-triangular
 	L = scipy.linalg.cholesky(csc_mat, lower=True) # Perform Cholesky decomposition 
@@ -56,21 +53,16 @@ def read_matrix():
 	# csr_mat = coo_mat.tocsr(copy=True)
 	return coo_mat.tocsc()
 	#print(A.todense())
-	#pdb.set_trace()
 
-@profile
+#@profile
 def main():
 	A = read_matrix()
-	print("Number of zeros", A.nnz)
+	print("Number of zeros: ", A.nnz)
 
 	# If you just want the number of bytes of the array elements
-	print("The number of bytes: ", A.data.nbytes + A.indptr.nbytes + A.indices.nbytes)
-	print("A.data.nbytes", A.data.nbytes)
-	print("A.indptr.nbytes", A.indptr.nbytes)
-	print("A.indices.nbytes", A.indices.nbytes)
+	print("A size: ", A.data.nbytes + A.indptr.nbytes + A.indices.nbytes, " bytes")
 
-	#pdb.set_trace()
-
+	# dir(A) is similar to vars(A)
 	# get dimensions of matrix
 	[xSize, ySize] = A.get_shape()
 
@@ -79,6 +71,23 @@ def main():
 
 	# vettore termini noti dato da A*xe = b
 	b = A.dot(xe)
+
+	# sparse_cholesky execution
+	start = time.process_time()
+	Ls = sparse_cholesky(A)
+	end = time.process_time()
+
+	x = Ls(b) # solves the equation Ax=b
+
+	# If you just want the number of bytes of the array elements
+	print("Ls size: ", Ls.L().data.nbytes + Ls.L().indptr.nbytes + Ls.L().indices.nbytes, " bytes")
+	print('\n')
+
+	print("The solution is: ")
+	print(x)
+	print('\n')
+	print("Time execution of sparse cholesky: " + str(end - start))
+	print("The error relative is: ", np.linalg.norm(x-xe)/np.linalg.norm(xe))
 
 	'''
 	# no sparse_cholesky execution
@@ -89,27 +98,6 @@ def main():
 	print(np.dot(L, L.T.conj())) # Verify
 	
 	'''
-	# sparse_cholesky execution
-	start = time.process_time()
-	Ls = sparse_cholesky(A)
-	end = time.process_time()
-
-	x = Ls(b) # solves the equation Ax=b
-
-	print("The solution is: ")
-	print(x)
-	print('\n')
-	print("Time execution sparse_cholesky: " + str(end - start))
-	print("The error relative is: ", np.linalg.norm(x-xe)/np.linalg.norm(xe))
-
-	# matrice cholesky size
-	# prima e dopo 
-	
-	'''
-	spB = Ls.L()
-	bo = np.allclose(A.todense(),spB.dot(spB.T).todense()) # Just for verification
-	print(bo)
-	'''	
 
 if __name__ == "__main__":
 	main()
