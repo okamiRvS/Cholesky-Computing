@@ -1,0 +1,44 @@
+shallow_water1.mtx
+Import: 	 0.279570817947388
+rows: 	 81920
+cols: 	 81920
+nonZeros: 	 327680
+size: 	 3278520
+Chol: 	 33.1154479980469
+Chol size: 	 276482496
+err: 	 3.52997259973264e-16
+
+
+cfd1.mtx
+Import: 	 1.31448292732239
+rows: 	 70656
+cols: 	 70656
+nonZeros: 	 1825580
+size: 	 15193880
+Chol: 	 1.85279498100281
+Chol size: 	 953167160
+err: 	 4.52146594193234e-11
+
+
+cfd2.mtx
+Import: 	 1.87210202217102
+rows: 	 123440
+cols: 	 123440
+nonZeros: 	 3085406
+size: 	 25692432
+Chol: 	 2.36082450151443
+Chol size: 	 1874219368
+err: 	 2.18932739424979e-11
+
+
+ex15.mtx
+Import: 	 0.137630939483643
+rows: 	 6867
+cols: 	 6867
+nonZeros: 	 98671
+size: 	 846032
+Chol: 	 0.0299210548400879
+Chol size: 	 3127552
+err: 	 8.78627303787618e-07
+
+

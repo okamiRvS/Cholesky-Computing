@@ -5,15 +5,18 @@ library("Matrix", "pryr")
 
 # read matrix
 
+i <- Sys.time()
 A <- readMM("../../data/ex15.mtx")
-m_i <- pryr::mem_used()
+a_size <- object.size(A)
+imp_t <- Sys.time() - i
+
 # find b for x to be [1, 1, ..., 1]
 
 xe <- rep(1, 1, ncol(A))
 b <-  A %*% xe  
 
 # Cholesky decomposition
-
+i2 <- Sys.time()
 R <- tryCatch(
   {
     Matrix::chol(A)
@@ -25,17 +28,14 @@ R <- tryCatch(
     print(w) # not positive definite matrix warning
   }
 )
-
+chol_t <- Sys.time() - i2
+r_size <- object.size(R)
 
 # solve the linear system
-s <- Sys.time()
-
+i3 = Sys.time()
 y <- Matrix::solve(t(R), b)
 x <- Matrix::solve(R, y)
-
-timing <- Sys.time() - s 
-m_f <- pryr::mem_used()
-mem <- m_f - m_i
+solve_t = Sys.time() - i3
 
 # relative error
 
