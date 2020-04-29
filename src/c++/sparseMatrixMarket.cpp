@@ -4,15 +4,15 @@
 
 #include "../../include/matrixParser/sparseMatrixMarket.h"
 
-sparseMatrixMarket::sparseMatrixMarket(std::string &filename)
-{
-    readMatrix(filename);
-}
-
-void sparseMatrixMarket::readMatrix(std::string &filename)
+Eigen::SparseMatrix<double> readMatrix(std::string &filename)
 {
     // Vector of sparse matrix triplets
     std::vector<T> tripletList;
+
+    Eigen::SparseMatrix<double> matrixOut;
+    int rows;
+    int cols;
+    int nonzeros;
 
     std::vector<double> T_element;
     std::ifstream infile;
@@ -40,14 +40,14 @@ void sparseMatrixMarket::readMatrix(std::string &filename)
             }
             if (bDimRow)
             {
-                this->_rows = trunc(T_element[0]);
-                this->_cols = trunc(T_element[1]);
-                this->_nonzeros = trunc(T_element[2]);
+                rows = trunc(T_element[0]);
+                cols = trunc(T_element[1]);
+                nonzeros = trunc(T_element[2]);
                 if (bIsSymmetric) 
                 {
-                    tripletList.reserve(2 * this->_nonzeros - 3 * this->_rows);
+                    tripletList.reserve(2 * nonzeros - 3 * rows);
                 } else {
-                    tripletList.reserve(this->_nonzeros);
+                    tripletList.reserve(nonzeros);
                 }             
                 bDimRow = false;
             }
@@ -65,26 +65,8 @@ void sparseMatrixMarket::readMatrix(std::string &filename)
             T_element.clear();
         }
     }
-    this->_matrixMarket.resize(this->_rows, this->_cols);
-    this->_matrixMarket.setFromTriplets(tripletList.begin(), tripletList.end());
-}
+    matrixOut.resize(rows, cols);
+    matrixOut.setFromTriplets(tripletList.begin(), tripletList.end());
 
-Eigen::SparseMatrix<double> & sparseMatrixMarket::matrixMarket()
-{
-    return this->_matrixMarket;
-}
-
-int sparseMatrixMarket::rows()
-{
-    return this->_rows;
-}
-
-int sparseMatrixMarket::cols()
-{
-    return this->_cols;
-}
-
-int sparseMatrixMarket::nonzeros()
-{
-    return this->_nonzeros;
+    return matrixOut;
 }
