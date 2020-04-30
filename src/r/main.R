@@ -7,7 +7,11 @@ library("Matrix", "pryr")
 
 i <- Sys.time()
 A <- readMM("../../data/ex15.mtx")
+name <- "apache2.mtx"
 a_size <- object.size(A)
+nrow <- nrow(A)
+ncol <- ncol(A)
+nonZ <- nnzero(A)
 imp_t <- Sys.time() - i
 
 # find b for x to be [1, 1, ..., 1]
