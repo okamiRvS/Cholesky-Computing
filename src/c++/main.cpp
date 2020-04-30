@@ -58,22 +58,22 @@ int main(int argc, char *argv[])
 
             // Import
             t1 = std::chrono::high_resolution_clock::now();
-            sparseMatrixMarket spMatrix(mtxFile);
+            Eigen::SparseMatrix<double> spMatrix = readMatrix(mtxFile);
             t2 = std::chrono::high_resolution_clock::now();
             duration = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
             std::cout << "Import:" << '\t' << '\t' << duration << " ms" << std::endl;
 
-            std::cout << "rows:" << '\t' << '\t' << spMatrix.matrixMarket().rows() << std::endl;
-            std::cout << "cols:" << '\t' << '\t' << spMatrix.matrixMarket().cols() << std::endl;
-            std::cout << "nonZeros:" << '\t' << spMatrix.matrixMarket().nonZeros() << std::endl;
+            std::cout << "rows:" << '\t' << '\t' << spMatrix.rows() << std::endl;
+            std::cout << "cols:" << '\t' << '\t' << spMatrix.cols() << std::endl;
+            std::cout << "nonZeros:" << '\t' << spMatrix.nonZeros() << std::endl;
             std::cout << "size:" << '\t' << '\t'
-                      << (spMatrix.matrixMarket().outerSize() + spMatrix.matrixMarket().nonZeros() + 1) * 4 +
-                          (spMatrix.matrixMarket().nonZeros() * 8) 
+                      << (spMatrix.outerSize() + spMatrix.nonZeros() + 1) * 4 +
+                          (spMatrix.nonZeros() * 8) 
                       << " byte" << std::endl;
 
             // Cholesky decomposition
             t1 = std::chrono::high_resolution_clock::now();
-            Eigen::SimplicialLLT<Eigen::SparseMatrix<double>> chol(spMatrix.matrixMarket());
+            Eigen::SimplicialLLT<Eigen::SparseMatrix<double>> chol(spMatrix);
             t2 = std::chrono::high_resolution_clock::now();
             duration = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
             std::cout << "Chol:" << '\t' << '\t' << duration << " ms" << std::endl;
@@ -85,8 +85,13 @@ int main(int argc, char *argv[])
             // Relative error
             Eigen::VectorXd x(spMatrix.rows());
             x.setOnes();
-            Eigen::VectorXd b = spMatrix.matrixMarket() * x;
+            Eigen::VectorXd b = spMatrix * x;
+
+            t1 = std::chrono::high_resolution_clock::now();
             Eigen::VectorXd xChol = chol.solve(b);
+            t2 = std::chrono::high_resolution_clock::now();
+            duration = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
+            std::cout << "Sol time:" << '\t' << duration << " ms" << std::endl;
 
             std::cout << "err:" << '\t' << '\t' << (xChol - x).norm() / x.norm() << std::endl
                       << std::endl;
