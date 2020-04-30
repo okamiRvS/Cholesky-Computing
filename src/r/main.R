@@ -40,3 +40,14 @@ solve_t = Sys.time() - i3
 # relative error
 
 err <-  norm(x - xe, type = "2") / norm(xe, type = "2")
+
+
+textfile=file.path("R_results.txt");
+printer = file(textfile,"a+");
+write(name, textfile, append=TRUE);
+write(c("Import: \t", imp_t, "rows: \t", nrow, 
+        "cols: \t", ncol, "nonZeros: \t", nonZ,
+        "size: \t", a_size, "Chol: \t", chol_t,
+        "Chol size: \t", r_size, "err: \t", err), textfile, sep = " ",append = TRUE, ncolumns = 2);
+write("\n", textfile, append=TRUE)
+close(printer)
