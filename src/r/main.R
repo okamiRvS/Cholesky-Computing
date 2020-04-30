@@ -1,4 +1,4 @@
-library("Matrix", "pryr")
+library("spam", "spam64")
 
 # set workspace path
 # setwd("../../git/cholesky-computing/src/r")
@@ -6,8 +6,8 @@ library("Matrix", "pryr")
 # read matrix
 
 i <- Sys.time()
-A <- readMM("../../data/ex15.mtx")
-name <- "apache2.mtx"
+A <- read.MM("../../data/ex15.mtx")
+name <- "ex15.mtx" # change matrix name
 a_size <- object.size(A)
 nrow <- nrow(A)
 ncol <- ncol(A)
@@ -17,19 +17,16 @@ imp_t <- Sys.time() - i
 # find b for x to be [1, 1, ..., 1]
 
 xe <- rep(1, 1, ncol(A))
-b <-  A %*% xe  
+b <-  as.spam(A %*% xe)
 
 # Cholesky decomposition
 i2 <- Sys.time()
 R <- tryCatch(
   {
-    Matrix::chol(A)
+    chol.spam(A)
   },
   error = function(e){
     print(e) # if matrix is not positive definite or symmetric, an error is signalled.
-  },
-  warning = function(w) {
-    print(w) # not positive definite matrix warning
   }
 )
 chol_t <- Sys.time() - i2
@@ -37,8 +34,7 @@ r_size <- object.size(R)
 
 # solve the linear system
 i3 = Sys.time()
-y <- Matrix::solve(t(R), b)
-x <- Matrix::solve(R, y)
+x <- solve.spam(R,b)
 solve_t = Sys.time() - i3
 
 # relative error
