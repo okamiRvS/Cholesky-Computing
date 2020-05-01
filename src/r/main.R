@@ -1,4 +1,4 @@
-library("spam", "spam64")
+library("spam", "spam64","Matrix")
 
 # set workspace path
 # setwd("../../git/cholesky-computing/src/r")
@@ -11,7 +11,7 @@ name <- "ex15.mtx" # change matrix name
 a_size <- object.size(A)
 nrow <- nrow(A)
 ncol <- ncol(A)
-nonZ <- nnzero(A)
+nonZ <- Matrix::nnzero(A)
 imp_t <- Sys.time() - i
 
 # find b for x to be [1, 1, ..., 1]
