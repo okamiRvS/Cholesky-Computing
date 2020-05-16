@@ -81,10 +81,10 @@ for (mat in matrixes) {
                    nonZeros = c(nonZ),
                    size = c(a_size),
                    chol = c(as.numeric(chol_t * 1000)),
-                   sol_time = c(as.numeric(solve_t * 1000)),
                    chol_size = c(r_size),
+                   sol_time = c(as.numeric(solve_t * 1000)),
                    err = c(err))
-  colnames(df) <- c('program', 'name', 'import','rows', 'cols', 'nonZeros','size', 'chol', 'sol_time', 'chol_size', 'err');
+  colnames(df) <- c('program', 'name', 'import','rows', 'cols', 'nonZeros','size', 'chol', 'chol_size', 'sol_time', 'err');
   write.table(df, "results.csv", sep = ",", col.names = !file.exists("results.csv"), row.names = FALSE, append=TRUE, quote = FALSE)
 }
 

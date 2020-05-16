@@ -62,4 +62,3 @@ end
 
 data = table(program, names, import, rows, cols, nonZeros, size, chol_info, chol_size, sol_time, err);
 writetable(data,'results.csv','WriteRowNames',true);
-
