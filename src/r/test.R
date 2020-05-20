@@ -85,6 +85,6 @@ for (mat in matrixes) {
                    sol_time = c(as.numeric(solve_t * 1000)),
                    err = c(err))
   colnames(df) <- c('program', 'name', 'import','rows', 'cols', 'nonZeros','size', 'chol', 'chol_size', 'sol_time', 'err');
-  write.table(df, "results.csv", sep = ",", col.names = !file.exists("results.csv"), row.names = FALSE, append=TRUE, quote = FALSE)
+  write.table(df, "results2.csv", sep = ",", col.names = !file.exists("results2.csv"), row.names = FALSE, append=TRUE, quote = FALSE)
 }
 
