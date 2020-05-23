@@ -3,24 +3,39 @@ import pdb
 import sys
 import scipy.io
 import scipy.sparse as sparse
+from scipy.sparse import csc_matrix
 from scipy.sparse import linalg as splinalg
 from sksparse.cholmod import cholesky
 import numpy as np
-from numpy import linalg as LA
 import time
 import datetime
 import csv
 from os import walk
 
-# To install scikit-sparse
-# IT WORKS ON LINUX, NOT ON WIN7, MAYBE IN WIN10
-# https://scikit-sparse.readthedocs.io/en/latest/overview.html
-# IF DOESN'T WORK FOLLOW THESE:
-#
-# AND THESE AS FOLLOW IN THIS ORDER
-# pip3 install scikits.bootstrap # maybe this not useful
-# pip3 install Cython
-# pip3 install scikits.sparse
+'''
+To install scikit-sparse (IT WORKS ON LINUX, AND IN WIN10)
+----------------------------------------------------------
+Requirements:
+To take "Microsoft Visual C++ Build Tools 2017" first of all you need visual studio 2017
+Get it here": https://visualstudio.microsoft.com/it/vs/older-downloads/
+Then in visual studio installer you could take as add-on in edit mode. This is important
+to get elements to compile
+
+Then install the GUI of cmake
+https://tulip.labri.fr/TulipDrupal/?q=node/1081
+
+There is a problem with scikit-sparse 0.4.3 version, so download the 0.4.4 here
+https://github.com/scikit-sparse/scikit-sparse/
+then take the setup.py here 
+https://github.com/xmlyqing00/Cholmod-Scikit-Sparse-Windows/blob/master/scikit-sparse-0.4.3/setup.py
+and switch it with setup.py of the 0.4.4 version
+
+After that, follow this tutorial
+https://github.com/xmlyqing00/Cholmod-Scikit-Sparse-Windows
+
+Documentation
+https://scikit-sparse.readthedocs.io/en/latest/overview.html
+'''
 
 # To install Memory Profiler
 # https://pypi.org/project/memory-profiler/
@@ -42,17 +57,6 @@ def no_sparse_cholesky(csc_mat):
 	L = scipy.linalg.cholesky(csc_mat, lower=True) # Perform Cholesky decomposition 
 	#print(L, end="\n\n")
 	return L
-
-def sparse_cholesky(A): 
-	# The input matrix spA must be a sparse symmetric positive-definite.
-
-	'''
-	Scipy does not currently provide a routine for cholesky decomposition
-	of a sparse matrix. This functionality is available in numpy and scipy
-	for dense matrices and in scikits.sparse for sparse matrices, depending on your matrix.
-	'''
-	
-	return cholesky(A)
 
 def read_matrix(path):
 	start = time.process_time()
@@ -104,9 +108,18 @@ def workflow(dirpath, matrix):
 		# vettore termini noti dato da A*xe = b
 		b = A.dot(xe)
 
+		'''
+		dir(Ls)
+		Ls.L()
+
+		print(vars(b))
+		print(vars(b.data))
+		print(b.data.size)
+		'''
+
 		# sparse_cholesky execution
 		start = time.process_time()
-		Ls = sparse_cholesky(A)
+		Ls = cholesky(A)
 		end = time.process_time()
 		row['chol'] = str(1000* (end - start))
 		print("Time execution of sparse cholesky: " + str(1000* (end - start)), " ms")
@@ -114,6 +127,14 @@ def workflow(dirpath, matrix):
 
 		start = time.process_time()
 		x = Ls(b) # solves the equation Ax=b
+
+		'''
+		print(np.allclose(Ls.L().todense(), np.tril(Ls.L().todense()))) # check if lower triangular
+		print(np.allclose(Ls.L().T.todense(), np.triu(Ls.L().T.todense()))) # check if upper triangular
+		y = splinalg.spsolve_triangular(sparse.csr_matrix(Ls.L()), b, lower=True)
+		x = splinalg.spsolve_triangular(sparse.csr_matrix(Ls.L().T), y, lower=False)
+		'''
+		
 		end = time.process_time()
 		row['sol_time'] = str(1000* (end - start))
 
@@ -130,12 +151,12 @@ def workflow(dirpath, matrix):
 		print("The error is: ", err)
 
 		print_csv(row=row)
-	except:
-		print("Error with: " + matrix)
+	except Exception as e:
+		print(e)
 
 
 
-#@profile
+# @profile
 def main():
 	f = []
 	for (dirpath, dirnames, filenames) in walk("../../data/"):
