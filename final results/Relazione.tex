@@ -126,7 +126,7 @@ La decomposizione di Cholesky è stata effettuata sfruttando Eigen, libreria tem
 Il programma è compilabile tramite Makefile presente nella cartella dei sorgenti (./src/c++/) e va eseguito via riga di comando fornendo come parametro la cartella in cui sono inserite le matrici in formato Matrix Market (es. \$./main.out ../../data)
 L’analisi viene eseguita su tutte le matrici .mtx presenti nella cartella data.
 
-Il primo problema affrontato è stata l’importazione in memoria del formato .mtx. Nonostante esistano delle funzioni di import reperibili online ( \href{https://math.nist.gov/MatrixMarket/mmio-c.html}{MatrixMarket/mmio-c.html}) abbiamo deciso di scrivere un parser ad-hoc per matrici Matrix Market. %%perché
+Il primo problema affrontato è stata l’importazione in memoria del formato .mtx. Nonostante esistano delle funzioni di import reperibili online ( \href{https://math.nist.gov/MatrixMarket/mmio-c.html}{MatrixMarket/mmio-c.html}) abbiamo deciso di scrivere un parser ad-hoc per matrici Matrix Market.
 
 \begin{figure}[H]
 \centering
@@ -181,8 +181,7 @@ In python, il calcolo della decomposizione di Cholesky può essere eseguito con 
 
 Seppur il pacchetto scikits.sparse a detta dei creatori è usabile sia in ambiente Windows che Linux, in realtà ci sono dei problemi di installazione lato windows, come si può vedere nella schermata issues della repository ufficiale. Per installare il pacchetto su Windows infatti è stato necessario come prima cosa compilare attraverso cmake suite sparse, una libreria C/C++ che permette di eseguire operazioni su matrici sparse. Così facendo siamo in grado di generare le librerie della suite attraverso la build in release mode su Visual Studio. Una volta ottenuta la libreria abbiamo installato manualmente scikits.sparse per windows. 
 
-Le operazioni base eseguite dal programma sono le medesime effettuate negli altri linguaggi considerati. In particolare, la memoria occupata è stata calcolata empiricamente come visto in C++ poiché anche scikit sparse, come Eigen, sfrutta suite sparse %% controllare
-. Il calcolo della decomposizione di Cholesky, poi, è stato eseguito con la funzione cholesky(), la quale ritorna un risolutore factor. Quest’ultimo permette di risolvere il sistema lineare Ax = b come mostrato nella figura:
+Le operazioni base eseguite dal programma sono le medesime effettuate negli altri linguaggi considerati. In particolare, la memoria occupata è stata calcolata empiricamente come visto in C++ poiché anche scikit sparse salva in memoria le matrici nello stesso formato di Eigen. Il calcolo della decomposizione di Cholesky, poi, è stato eseguito con la funzione cholesky(), la quale ritorna un risolutore factor. Quest’ultimo permette di risolvere il sistema lineare Ax = b come mostrato nella figura:
 
 \begin{figure}[H]
 \centering
@@ -287,10 +286,26 @@ L’errore relativo ha un massimo con la matrice più piccola (ex15), raggiunge 
 
 \section{Conclusioni}
 
-Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica proposta all’inizio del progetto, ossia immaginare di dover scegliere per un’azienda un ambiente di programmazione in grado di risolvere con il metodo di Cholesky sistemi lineari con matrici sparse e deﬁnite positive di grandi dimensioni, dovendo decidere tra software proprietario (MATLAB) oppure open source e anche tra sistema operativo Windows oppure Linux, possiamo concludere quanto segue.
+Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica proposta all’inizio del progetto, ossia immaginare di dover scegliere per un’azienda un ambiente di programmazione in grado di risolvere con il metodo di Cholesky sistemi lineari con matrici sparse e deﬁnite positive di grandi dimensioni, dovendo decidere tra software proprietario (MATLAB) oppure open source e anche tra sistema operativo Windows oppure Linux, possiamo concludere quanto segue.\\
 
-Come prima cosa è risultato evidente che per eseguire tutte le matrici proposte è necessario disporre di computer molto potenti, indipendentemente dal sistema operativo: non è stato possibile infatti eseguire i codici con le matrici Flan 1565 e StocF-1465, rispettivamente di dimensioni 1,564,794 x 1,564,794 e 1,465,137 x 1,465,137.
-Come evidenziato dai risultati da noi ottenuti inoltre sono più efficienti ambienti di programmazione opensource piuttosto che MATLAB, in quanto si ha un utilizzo migliore della memoria. In particolare, i linguaggi con i quali si sono ottenuti risultati più lineari sono R e Python, mentre C++, nonostante i risultati altalenanti, su Windows ha un utilizzo più efficiente della memoria.
+Come prima cosa è risultato evidente che per eseguire tutte le matrici proposte è necessario disporre di computer molto potenti, indipendentemente dal sistema operativo: non è stato possibile infatti eseguire i codici con le matrici Flan 1565 e StocF-1465, rispettivamente di dimensioni 1,564,794 x 1,564,794 e 1,465,137 x 1,465,137.\\
+
+Trovare più veloce, quello che occupa meno spazio
+
+R ha import time maggiore sia su linux che su windows nonostante tempo di chol minore (verificare con grafico)
+
+Grafico relazione tempo di chol e dimensione matrice cholesky ?
+
+Dal punto di vista dell'accuratezza gli errori sono di ordini di grandezza molto vicini per tutti
+
+Grafico occupazione memoria
+
+C++ più lento su linux, in windows lenti R e C++ (notare che usiamo comunque metodi di calcolo del tempo diversi)
+C++ gira su unico core
+
+Facilità d'uso python schifo su windows per l'installazione ma codice ok, c++ scrittura del codice più complessa, matlab il più easy, R semplice
+python poco documentato, il resto ok
+pecca di c++ sono le prestazioni
 
 
 \end{document}
