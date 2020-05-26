@@ -210,11 +210,11 @@ Nelle ordinate viene utilizzata una scala logaritmica poiché si hanno tre valor
 
 \begin{figure}[H]
 \centering
-\begin{minipage}{.5\textwidth}
+\begin{minipage}{.6\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{img/matlabwin.png}
 \end{minipage}%
-\begin{minipage}{.5\textwidth}
+\begin{minipage}{.6\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{img/matlablinux.png}
 \end{minipage}
@@ -229,11 +229,11 @@ Con MATLAB non è stato possibile analizzare matrici di dimensioni superiori a c
 
 \begin{figure}[H]
 \centering
-\begin{minipage}{.5\textwidth}
+\begin{minipage}{.6\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{img/c++win.png}
 \end{minipage}%
-\begin{minipage}{.5\textwidth}
+\begin{minipage}{.6\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{img/c++linux.png}
 \end{minipage}
@@ -249,11 +249,11 @@ In entrambi i casi l’errore relativo ha valori altalenanti, è interessante so
 
 \begin{figure}[H]
 \centering
-\begin{minipage}{.5\textwidth}
+\begin{minipage}{.6\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{img/Rwin.png}
 \end{minipage}%
-\begin{minipage}{.5\textwidth}
+\begin{minipage}{.6\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{img/Rlinux.png}
 \end{minipage}
@@ -268,11 +268,11 @@ Per quanto riguarda gli errori relativi si parte in entrambe i casi con un error
 
 \begin{figure}[H]
 \centering
-\begin{minipage}{.5\textwidth}
+\begin{minipage}{.6\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{img/pythonwin.png}
 \end{minipage}%
-\begin{minipage}{.5\textwidth}
+\begin{minipage}{.6\textwidth}
   \centering
   \includegraphics[width=1\linewidth]{img/pythonlinux.png}
 \end{minipage}
@@ -290,22 +290,79 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 
 Come prima cosa è risultato evidente che per eseguire tutte le matrici proposte è necessario disporre di computer molto potenti, indipendentemente dal sistema operativo: non è stato possibile infatti eseguire i codici con le matrici Flan 1565 e StocF-1465, rispettivamente di dimensioni 1,564,794 x 1,564,794 e 1,465,137 x 1,465,137.\\
 
-Trovare più veloce, quello che occupa meno spazio
+Nel sistema operativo Windows nessuno dei linguaggi analizzati dimostra di riuscire ad eseguire i calcoli in un tempo totale (calcolato come somma del tempo necessario per l'importazione della matrice e del tempo necessario per la decomposizione di Cholesky) particolarmente migliore rispetto agli altri.
 
-R ha import time maggiore sia su linux che su windows nonostante tempo di chol minore (verificare con grafico)
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\linewidth]{img/tempototwin.png}
+\end{figure}
 
-Grafico relazione tempo di chol e dimensione matrice cholesky ?
+Per quanto riguarda Linux, invece, C++ ha dei risultati decisamente peggiori mentre R risulta avere dei tempi migliori per tutte le matrici esclusa G3\_circuit, la matrice di dimensione maggiore, dove è Python ad ottenere il risultato più basso.
 
-Dal punto di vista dell'accuratezza gli errori sono di ordini di grandezza molto vicini per tutti
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\linewidth]{img/tempototlinux.png}
+\end{figure}
 
-Grafico occupazione memoria
+Esaminando però separatamente il tempo di import e il tempo della decomposizione di Cholesky, si può notare che su Windows R impiega molto più tempo per importare le matrici mentre è Python il più veloce.
 
-C++ più lento su linux, in windows lenti R e C++ (notare che usiamo comunque metodi di calcolo del tempo diversi)
-C++ gira su unico core
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\linewidth]{img/tempoimpwin.png}
+\end{figure}
 
-Facilità d'uso python schifo su windows per l'installazione ma codice ok, c++ scrittura del codice più complessa, matlab il più easy, R semplice
-python poco documentato, il resto ok
-pecca di c++ sono le prestazioni
+Anche su Linux è R ad avere il peggior tempo di import, mentre in questo caso è MATLAB il più veloce.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.57\linewidth]{img/tempoimplinux.png}
+\end{figure}
+
+
+MATLAB è, invece, il più lento per quanto riguarda la decomposizione di Cholesky su Windows, mentre R in questo caso è il più veloce.
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\linewidth]{img/tempocholwin.png}
+\end{figure}
+
+Su Linux, R e Python hanno i tempi peggiori, con valori molto simili, e il più veloce in questo caso è MATLAB. Se si considera, però, il fatto che con MATLAB non si riescono ad analizzare le matrici di dimensione più elevate, è C++ il linguaggio con i risultati migliori.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\linewidth]{img/tempochollinux.png}
+\end{figure}
+
+
+Per quanto riguarda l'accuratezza, in Windows R e MATLAB hanno errori di ordine di grandezza simile, con Python si ottiene un errore nettamente migliore per quanto riguarda la matrice ex\_15. Con il crescere della dimensione della matrice nessuno dei linguaggi ottiene dei risultati migliori, in quanto sono tutti altalenanti ma con ordini di grandezza simili.
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.5\linewidth]{img/errwin.png}
+\end{figure}
+
+In Linux, invece, si può notare che con Python si hanno errori di ordine di grandezza minore rispetto agli altri, mentre C++ ha una accuratezza minore.
+ 
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.5\linewidth]{img/errlinux.png}
+\end{figure}
+
+Per valutare la memoria occupata dal programma abbiamo sommato la dimensione della matrice importata e la dimensione della decomposizione di Cholesky. MATLAB è il linguaggio di programmazione che, in Windows, occupa più memoria, mentre Python, R e C++ hanno un andamento analogo, con risultati lievemente migliori per R.
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.5\linewidth]{img/memoccwin.png}
+\end{figure}
+
+Anche su Linux la situazione è analoga, con MATLAB ad occupare più memoria e Python, R e C++ con andamento simile.
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.5\linewidth]{img/memocclinux.png}
+\end{figure}
+
+
+Per quanto concerne la facilità d'uso Python è stato il linguaggio che ha causato più difficoltà nell'installazione, sopratutto su sistema operativo Windows, a causa anche dalla poca documentazione reperibile, anche se nella scrittura del codice non si incontrano particolari difficoltà. %Chiedere a Fede per C++
+I codici in MATLAB ed R sono i più immediati da scrivere, poiché nel primo caso non è necessario effettuare alcuna ricerca di librerie esterne, mentre nel caso di R si ha una documentazione ricca che permette di sfruttare al meglio le librerie disponibili.
 
 
 \end{document}
