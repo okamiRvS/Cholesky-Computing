@@ -224,7 +224,7 @@ Con il comando \textit{chol.spam} effettuiamo la decomposizione di Cholesky sull
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\linewidth]{img/R1.jpg}
+\includegraphics[width=0.9\linewidth]{img/R1.png}
 %\caption{\textit{formato CSR e CSC}}
 %\label{fig:1}
 \end{figure}
@@ -381,7 +381,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
   \includegraphics[width=0.7\linewidth]{img/tempototwin.png}
 \end{figure}
 
-\noindent Per quanto riguarda Linux, invece, C++ ha dei risultati decisamente peggiori mentre R risulta avere dei tempi migliori per tutte le matrici esclusa \textit{G3\_circuit}, la matrice di dimensione maggiore, dove è Python ad ottenere il risultato più basso.
+\noindent Per quanto riguarda Linux C++ e R risultano avere andamenti simili a Windows. Python, invece, mostra un'esecuzione molto più rapida rispetto a Windows rendendolo il migliore a tutti gli altri linguaggi utilizzati.
 
 \begin{figure}[H]
 \centering
@@ -414,7 +414,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
   \includegraphics[width=0.8\linewidth]{img/tempocholwin.png}
 \end{figure}
 
-\noindent Su Linux, R e Python hanno i tempi peggiori, con valori molto simili, e il più veloce in questo caso è MATLAB. Se si considera, però, il fatto che con MATLAB non si riescono ad analizzare le matrici di dimensione più elevate, è C++ il linguaggio con i risultati migliori.
+\noindent Nel complesso i vari linguaggi hanno tempi con ordini di grandezza minori  rispetto a Windows. R e Python hanno i tempi migliori, con valori molto simili. E' importante evidenziare che C++ ha i risultati peggiori, ma migliori rispetto quelli di Windows.
 
 \begin{figure}[H]
 \centering
@@ -422,7 +422,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \end{figure}
 
 
-\noindent Per quanto riguarda l'accuratezza, in Windows R e MATLAB hanno errori di ordine di grandezza simile, con Python si ottiene un errore nettamente migliore per quanto riguarda la matrice \textit{ex\_15}. Con il crescere della dimensione della matrice nessuno dei linguaggi ottiene dei risultati migliori, in quanto sono tutti altalenanti ma con ordini di grandezza simili.
+\noindent Per quanto riguarda l'accuratezza, in Windows tutti e 4 i linguaggi di programmazione hanno risultati simili, trovano l'errore più grande nella matrice \textit{ex15} e quello più piccolo nella matrice \textit{shallow\_water1}.
 \bigskip
 
 \begin{figure}[H]
@@ -430,7 +430,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
   \includegraphics[width=0.75\linewidth]{img/errwin.png}
 \end{figure}
 
-\noindent In Linux, invece, si può notare che con Python si hanno errori di ordine di grandezza minore rispetto agli altri, mentre C++ ha una accuratezza minore.
+\noindent In Linux, si può notare che con Python si hanno errori lievemente di ordine di grandezza minore rispetto agli altri, mentre C++ ha una accuratezza ancora minore come Windows.
 \bigskip
  
 \begin{figure}[H]
@@ -446,7 +446,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
   \includegraphics[width=0.8\linewidth]{img/memoccwin.png}
 \end{figure}
 
-\noindent Anche su Linux la situazione è analoga, con MATLAB ad occupare più memoria e Python, R e C++ con andamento simile.
+\noindent Anche su Linux, il linguaggio che occupa più memoria è MATLAB, mentre Python, R e C++ hanno un andamento simile.
 \bigskip
 
 \begin{figure}[H]
@@ -454,8 +454,8 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
   \includegraphics[width=0.8\linewidth]{img/memocclinux.png}
 \end{figure}
 
-\noindent Per quanto concerne la facilità d'uso Python è stato il linguaggio che ha causato più difficoltà nell'installazione, sopratutto su sistema operativo Windows, a causa anche dalla poca documentazione reperibile, anche se nella scrittura del codice non si incontrano particolari difficoltà. In C++ è stata utilizzata la libreria Eigen, la quale è molto ben documentata e semplice da importare ed utilizzare nel proprio programma.
-I codici in MATLAB ed R sono i più immediati da scrivere, poiché nel primo caso non è necessario effettuare alcuna ricerca di librerie esterne, mentre nel caso di R si ha una documentazione ricca che permette di sfruttare al meglio le librerie disponibili.
+\noindent Per quanto concerne la facilità d'uso Python è stato il linguaggio che ha causato più difficoltà nell'installazione, sopratutto su sistema operativo Windows, a causa anche dalla poca documentazione reperibile, anche se nella scrittura del codice non si incontrano particolari difficoltà. In C++ è stata utilizzata la libreria Eigen, la quale è molto ben documentata e semplice da importare e utilizzare nel proprio programma.
+I codici in MATLAB e R sono i più immediati da scrivere, poiché nel primo caso non è necessario effettuare alcuna ricerca di librerie esterne, mentre nel caso di R si ha una documentazione ricca che permette di sfruttare al meglio le librerie disponibili.
 
 
 \end{document}
