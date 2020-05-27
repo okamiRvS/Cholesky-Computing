@@ -28,7 +28,7 @@ for i=3 : length(directory)
         xe = ones(1, col);
         b = A * xe';
 
-        % Cholewski decomposition
+        % Cholesky decomposition
         tic;
         R = chol(A);
         cholesky_time = toc * 1000;
