@@ -1,0 +1,44 @@
+-----------------------------------------------
+Linux
+
+Processor:
+Vendor: Intel
+Model: Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+Number of cores: 4
+
+Motherboard:
+Vendor: Oracle Corporation
+Model: VirtualBox 1.2
+
+Memory:
+Ram: 11000 MB
+
+System:
+Architecture: x86_64
+Kernel: 5.3.0-53-generic
+
+Graphic:
+Graphic Controller: VMware SVGA II Adapter
+OpenGL Vendor: VMware, Inc.
+
+-----------------------------------------------
+Windows
+
+Processor:
+Vendor: Intel
+Model: Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+Number of cores: 4
+
+Motherboard:
+Vendor: Oracle Corporation
+Model: VirtualBox 1.2
+
+Memory:
+Ram: 11000 MB
+
+System:
+Architecture: based on x64
+
+Graphic:
+Graphic Controller: VirtualBox Graphics Adapter (WDDM)
+Type: VirtualBox VESA BIOS, Oracle Corporation compatibile
