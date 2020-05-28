@@ -127,7 +127,7 @@ Lo scopo di questo progetto è studiare l’implementazione del metodo di Choles
 \bigskip
 
 \noindent Per poter raggiungere questo obiettivo abbiamo deciso di confrontare MATLAB con gli ambienti open source C++, R e Python.
-È possibile trovare il listato dei codici alla seguente \href{https://gitlab.com/okamiRvS/cholesky-computing}{\textbf{repository}}.
+È possibile trovare il listato dei codici alla seguente \href{https://gitlab.com/okamiRvS/cholesky-computing}{\textbf{repository}} o nell'appendice A.
 
 
 \newpage
@@ -468,5 +468,28 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \noindent Per quanto concerne la facilità d'uso Python è stato il linguaggio che ha causato più difficoltà nell'installazione, sopratutto su sistema operativo Windows, a causa anche dalla poca documentazione reperibile, anche se nella scrittura del codice non si incontrano particolari difficoltà. In C++ è stata utilizzata la libreria Eigen, la quale è molto ben documentata e semplice da importare e utilizzare nel proprio programma.
 I codici in MATLAB e R sono i più immediati da scrivere, poiché nel primo caso non è necessario effettuare alcuna ricerca di librerie esterne, mentre nel caso di R si ha una documentazione ricca che permette di sfruttare al meglio le librerie disponibili.
 
+\newpage
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+
+\section{Appendice A}
+Di seguito sono riportati i listati dei codici.
+
+\subsection{MATLAB}
+\lstinputlisting[language=matlab]{../src/matlab/main.m}
+
+\newpage
+\subsection{C++}
+\lstinputlisting[language=C++]{../src/c++/sparseMatrixMarket.cpp}
+
+\lstinputlisting[language=C++]{../src/c++/main.cpp}
+
+\newpage
+\subsection{R}
+\lstinputlisting[language=R]{../src/r/main.r}
+
+\newpage
+\subsection{Python}
+\lstinputlisting[language=python]{../src/python/main.py}
 
 \end{document}

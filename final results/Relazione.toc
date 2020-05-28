@@ -9,3 +9,8 @@
 \contentsline {subsection}{R}{11}{section*.10}% 
 \contentsline {subsection}{Python}{12}{section*.11}% 
 \contentsline {section}{Conclusioni}{13}{section*.12}% 
+\contentsline {section}{Appendice A}{19}{section*.13}% 
+\contentsline {subsection}{MATLAB}{19}{section*.14}% 
+\contentsline {subsection}{C++}{21}{section*.15}% 
+\contentsline {subsection}{R}{26}{section*.16}% 
+\contentsline {subsection}{Python}{28}{section*.17}% 
