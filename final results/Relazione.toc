@@ -1,11 +1,11 @@
-\contentsline {section}{Introduzione}{2}{section*.2}% 
-\contentsline {section}{MATLAB}{3}{section*.3}% 
-\contentsline {section}{C++}{5}{section*.4}% 
-\contentsline {section}{R}{7}{section*.5}% 
-\contentsline {section}{Python}{8}{section*.6}% 
-\contentsline {section}{Analisi dei risultati}{9}{section*.7}% 
-\contentsline {subsection}{MATLAB}{10}{section*.8}% 
-\contentsline {subsection}{C++}{10}{section*.9}% 
-\contentsline {subsection}{R}{11}{section*.10}% 
-\contentsline {subsection}{Python}{12}{section*.11}% 
-\contentsline {section}{Conclusioni}{13}{section*.12}% 
+\contentsline {section}{Introduzione}{2}{section*.2}%
+\contentsline {section}{MATLAB}{3}{section*.3}%
+\contentsline {section}{C++}{4}{section*.4}%
+\contentsline {section}{R}{6}{section*.5}%
+\contentsline {section}{Python}{7}{section*.6}%
+\contentsline {section}{Analisi dei risultati}{8}{section*.7}%
+\contentsline {subsection}{MATLAB}{9}{section*.8}%
+\contentsline {subsection}{C++}{9}{section*.9}%
+\contentsline {subsection}{R}{10}{section*.10}%
+\contentsline {subsection}{Python}{11}{section*.11}%
+\contentsline {section}{Conclusioni}{12}{section*.12}%
