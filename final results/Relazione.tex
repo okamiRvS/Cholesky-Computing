@@ -7,8 +7,10 @@
 \usepackage{etoolbox}
 \usepackage{fullpage}
 \renewcommand*\contentsname{Indice}
+\renewcommand*\figurename{Fig.}
 \usepackage{setspace}
 \usepackage{parskip}
+\usepackage{subfigure}
 \usepackage{amsmath}
 
 
@@ -139,8 +141,7 @@ Nella scrittura del codice, per prima cosa abbiamo importato le diverse matrici 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\linewidth]{img/matlab1.jpg}
-%\caption{\textit{}}
-\label{fig:1}
+\caption{\textit{Importazione della matrice in MATLAB}}
 \end{figure}
 
 \noindent Attraverso la funzione \textit{tic toc} abbiamo calcolato il tempo di esecuzione specifiche porzioni del codice di interesse, come il calcolo della decomposizione di Cholesky e della soluzione finale del sistema lineare.
@@ -150,8 +151,7 @@ Dopo aver calcolato la soluzione esatta xe del sistema lineare A*xe = b, attrave
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\linewidth]{img/matlab2.jpg}
-%\caption{\textit{}}
-\label{fig:2}
+\caption{\textit{Decomposizione di Cholesky in MATLAB}}
 \end{figure}
 
 \noindent La funzione \textit{chol} è in grado di accorgersi se la matrice passata è definita positiva e simmetrica. Dopo aver determinato lo spazio in memoria occupato dalla matrice decomposta attraverso il metodo di Cholesky abbiamo calcolato la soluzione finale x, grazie alla quale abbiamo potuto trovare l’errore relativo e abbiamo infine misurato il tempo di risoluzione.
@@ -176,7 +176,6 @@ L’analisi viene eseguita su tutte le matrici .mtx presenti nella cartella data
 \centering
 \includegraphics[width=0.85\linewidth]{img/c++1.jpg}
 \caption{\textit{Import con Eigen::SparseMatrix\textless double\textgreater readMatrix(std::string \&filename)}}
-%\label{fig:1}
 \end{figure}
 
 \noindent Non avendo trovato una funzione che permettesse di controllare lo spazio in memoria occupato da un oggetto, la dimensione delle matrici è stata calcolata empiricamente, studiandone la metodologia di memorizzazione. Eigen (così come la libreria utilizzata per il linguaggio Python) comprime la matrice sparsa utilizzando il formato Compressed Sparse Row/Column. Vengono mantenuti in memoria due array di interi (4 byte), contenti indici per la ricostruzione della matrice, e un array di double (8 byte), contenete i valori non-zero.
@@ -185,7 +184,6 @@ L’analisi viene eseguita su tutte le matrici .mtx presenti nella cartella data
 \centering
 \includegraphics[width=1 \linewidth]{img/c++2.jpg}
 \caption{\textit{formato CSR e CSC, \href{https://matteding.github.io/2019/04/25/sparse-matrices/} {matrici sparse}}}
-%\label{fig:1}
 \end{figure}
 
 \fancyhf{}
@@ -225,8 +223,7 @@ Con il comando \textit{chol.spam} effettuiamo la decomposizione di Cholesky sull
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\linewidth]{img/R1.png}
-%\caption{\textit{formato CSR e CSC}}
-%\label{fig:1}
+\caption{\textit{Decomposizione di Cholesky in R}}
 \end{figure}
 
 \noindent La libreria in uso implementa anche la funzione \textit{solve.spam} che, dato in input il risultato della funzione \textit{chol.spam}, calcola direttamente il risultato del sistema lineare, combinando in maniera opportuna \textit{backsolve} e \textit{forwardsolve}.
@@ -249,10 +246,9 @@ In python, il calcolo della decomposizione di Cholesky può essere eseguito con 
 \noindent Il calcolo della decomposizione di Cholesky, poi, è stato eseguito con la funzione \textit{cholesky}, la quale ritorna un risolutore factor. Quest’ultimo permette di risolvere il sistema lineare Ax = b come mostrato nella figura:
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.4\linewidth]{img/python1.jpg}
-	%\caption{\textit{formato CSR e CSC}}
-	%\label{fig:1}
+\centering
+\includegraphics[width=0.4\linewidth]{img/python1.jpg}
+\caption{\textit{Decomposizione di Cholesky in Python}}
 \end{figure}
 
 \newpage
@@ -279,18 +275,20 @@ Le specifiche tecniche sono le seguenti: \\
 
 \noindent Nelle ordinate viene utilizzata una scala logaritmica poiché si hanno tre valori con ordini di grandezza diversi.
  
+
 \subsection{MATLAB}
 \begin{figure}[H]
-\centering
-\begin{minipage}{.5\textwidth}
-  \centering
+\centering%
+\begin{minipage}{0.5\textwidth}
   \includegraphics[width=1\linewidth]{img/matlabwin.png}
 \end{minipage}%
-\begin{minipage}{.5\textwidth}
-  \centering
+\begin{minipage}{0.5\textwidth}\centering
   \includegraphics[width=1\linewidth]{img/matlablinux.png}
-\end{minipage}
+\end{minipage}%
+  
+\caption{Esecuzione MATLAB su Windows e Linux}
 \end{figure}
+
 \bigskip
 
 \fancyhf{}
@@ -314,6 +312,7 @@ In entrambi i casi al crescere della dimensione della matrice aumenta il tempo d
   \centering
   \includegraphics[width=1\linewidth]{img/c++linux.png}
 \end{minipage}
+\caption{Esecuzione C++ su Windows e Linux}
 \end{figure}
 
 Anche nel caso di C++ analizzando i grafici si possono notare andamenti simili.
@@ -336,6 +335,7 @@ In entrambi i casi l’errore relativo ha valori altalenanti, è interessante so
   \centering
   \includegraphics[width=1\linewidth]{img/Rlinux.png}
 \end{minipage}
+\caption{Esecuzione R su Windows e Linux}
 \end{figure}
 
 \bigskip
@@ -357,6 +357,7 @@ Per quanto riguarda gli errori relativi si parte in entrambe i casi con un error
   \centering
   \includegraphics[width=1\linewidth]{img/pythonlinux.png}
 \end{minipage}
+\caption{Esecuzione Python su Windows e Linux}
 \end{figure}
 
 
@@ -379,6 +380,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.7\linewidth]{img/tempototwin.png}
+  \caption{Tempo esecuzione totale su Windows}
 \end{figure}
 
 \noindent Per quanto riguarda Linux C++ e R risultano avere andamenti simili a Windows. Python, invece, mostra un'esecuzione molto più rapida rispetto a Windows rendendolo il migliore a tutti gli altri linguaggi utilizzati.
@@ -386,6 +388,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.8\linewidth]{img/tempototlinux.png}
+\caption{Tempo esecuzione totale su Linux}
 \end{figure}
 
 \fancyhf{}
@@ -397,12 +400,14 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.8\linewidth]{img/tempoimpwin.png}
+\caption{Tempo di importazione su Windows}
 \end{figure}
 
 \noindent Anche su Linux è R ad avere il peggior tempo di import, mentre in questo caso è MATLAB il più veloce.
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.7\linewidth]{img/tempoimplinux.png}
+\caption{Tempo di importazione su Linux}
 \end{figure}
 
 
@@ -412,6 +417,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.8\linewidth]{img/tempocholwin.png}
+\caption{Tempo decomposizione di Cholesky su Windows}
 \end{figure}
 
 \noindent Nel complesso i vari linguaggi hanno tempi con ordini di grandezza minori  rispetto a Windows. R e Python hanno i tempi migliori, con valori molto simili. E' importante evidenziare che C++ ha i risultati peggiori, ma migliori rispetto quelli di Windows.
@@ -419,6 +425,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.75\linewidth]{img/tempochollinux.png}
+\caption{Tempo decomposizione di Cholesky su Linux}
 \end{figure}
 
 
@@ -428,6 +435,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.75\linewidth]{img/errwin.png}
+\caption{Errore relativo su Windows}
 \end{figure}
 
 \noindent In Linux, si può notare che con Python si hanno errori lievemente di ordine di grandezza minore rispetto agli altri, mentre C++ ha una accuratezza ancora minore come Windows.
@@ -436,6 +444,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.75\linewidth]{img/errlinux.png}
+\caption{Errore relativo su Linux}
 \end{figure}
 
 \noindent Per valutare la memoria occupata dal programma abbiamo sommato la dimensione della matrice importata e la dimensione della decomposizione di Cholesky. MATLAB è il linguaggio di programmazione che, in Windows, occupa più memoria, mentre Python, R e C++ hanno un andamento analogo, con risultati lievemente migliori per R.
@@ -444,6 +453,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.8\linewidth]{img/memoccwin.png}
+\caption{Memoria occupata su Windows}
 \end{figure}
 
 \noindent Anche su Linux, il linguaggio che occupa più memoria è MATLAB, mentre Python, R e C++ hanno un andamento simile.
@@ -452,6 +462,7 @@ Alla luce di quanto abbiamo appena analizzato e mettendoci nell’ottica propost
 \begin{figure}[H]
 \centering
   \includegraphics[width=0.8\linewidth]{img/memocclinux.png}
+\caption{Memoria occupata su Linux}
 \end{figure}
 
 \noindent Per quanto concerne la facilità d'uso Python è stato il linguaggio che ha causato più difficoltà nell'installazione, sopratutto su sistema operativo Windows, a causa anche dalla poca documentazione reperibile, anche se nella scrittura del codice non si incontrano particolari difficoltà. In C++ è stata utilizzata la libreria Eigen, la quale è molto ben documentata e semplice da importare e utilizzare nel proprio programma.
