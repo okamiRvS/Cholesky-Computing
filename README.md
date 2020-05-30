@@ -41,7 +41,16 @@ Unix x64\
 Nel sistema operativo Windows nessuno dei linguaggi analizzati dimostra di riuscire ad eseguire i calcoli in un tempo totale (calcolato come somma del tempo necessario per
 l’importazione della matrice e del tempo necessario per la decomposizione di Cholesky) particolarmente migliore rispetto agli altri.
 
-<img src="https://gitlab.com/okamiRvS/cholesky-computing/-/raw/master/final%20results/img/tempoimpwin.png" alt="time_win" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+<div align="center">
+<img src="https://gitlab.com/okamiRvS/cholesky-computing/-/raw/master/final%20results/img/tempoimpwin.png" >
+<p>Fig. 12: Tempo esecuzione totale su Linux</p>
+</div>
 
 Per quanto riguarda Linux C++ e R risultano avere andamenti simili a Windows. Python, invece, mostra un’esecuzione molto pi`u rapida rispetto a Windows rendendolo il migliore a tutti gli altri linguaggi utilizzati.
-<img src="https://gitlab.com/okamiRvS/cholesky-computing/-/raw/master/final%20results/img/tempototlinux.png" alt="time_linux" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+
+<div align="center">
+<img src="https://gitlab.com/okamiRvS/cholesky-computing/-/raw/master/final%20results/img/tempototlinux.png" >
+<p>Fig. 12: Tempo esecuzione totale su Linux</p>
+</div>
+
+
