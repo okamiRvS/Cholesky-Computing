@@ -43,14 +43,15 @@ l’importazione della matrice e del tempo necessario per la decomposizione di C
 
 <div align="center">
 <img src="https://gitlab.com/okamiRvS/cholesky-computing/-/raw/master/final%20results/img/tempoimpwin.png" >
-<p>Fig. 12: Tempo esecuzione totale su Linux</p>
+<p>Fig. 1: Tempo esecuzione totale su Windows</p>
 </div>
 
-Per quanto riguarda Linux C++ e R risultano avere andamenti simili a Windows. Python, invece, mostra un’esecuzione molto pi`u rapida rispetto a Windows rendendolo il migliore a tutti gli altri linguaggi utilizzati.
+<br />
 
+Per quanto riguarda Linux C++ e R risultano avere andamenti simili a Windows. Python, invece, mostra un’esecuzione molto più rapida rispetto a Windows rendendolo il migliore a tutti gli altri linguaggi utilizzati.
 <div align="center">
 <img src="https://gitlab.com/okamiRvS/cholesky-computing/-/raw/master/final%20results/img/tempototlinux.png" >
-<p>Fig. 12: Tempo esecuzione totale su Linux</p>
+<p>Fig. 2: Tempo esecuzione totale su Linux</p>
 </div>
 
-
+Si rimanda alla [relazione](https://gitlab.com/okamiRvS/cholesky-computing/-/blob/master/final%20results/Relazione.pdf) per un'analisi completa e dettagliata.
